@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 마이바티스 기본설정, 아래 property에 설정해주고(DB연동),  pom에도 설정 해주어야 한다-->
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  <!-- ^가 있으면 마이바티스라고 알아본다. configuration, config로 종류를 알아본다. -->
+<configuration>
+<!--resultType: 가명을 붙이는 기능을 한다.  
+	type에 주소를 적고 
+	alias에 위치를 대치할 이름을 적는다.-->
+	<typeAliases>
+		<typeAlias type="com.spring.mvc.model.study.Student" alias="StudentType"/>
+	</typeAliases>
+
+  <environments default="development">
+    <environment id="development">
+      <transactionManager type="JDBC"/>
+      <!-- transaction: insert시 데이터 삽입중간에 문제가 발생하는 경우 데이터를 다시 되돌림-> 롤백, 다 넣음을 확인하고 문제없음을 확인절차=commit, 결과를 알린다, 이 과정을 transaction이라고 한다
+      		이 트랜젝션을 JDBC가 하라는것  -->
+      <dataSource type="POOLED">
+        <property name="driver" value="org.gjt.mm.mysql.Driver"/>
+        <property name="url" value="jdbc:mysql://localhost:3306/springstudy?serverTimezone=UTC"/>
+        <property name="username" value="root"/>
+        <property name="password" value="toor"/>
+      </dataSource>
+      <!-- 
+      		dataSource: servlet-context안에 <beans:bean id="dataSource"...> 이랑 같다.
+      		마이바티스는 타입이 unfooled이면 풀을 사용안함, 즉 사용여부를 지정 가능, 차이점?, 
+      		unfooled: 매번 접속시마다 승인을 받고 매번 db와의 연결이 필요하다.
+      		pooled: 매번 승인 없이 만들어진 커넥션만 가지고 가면 된다.
+      -->
+    </environment>
+  </environments>
+  <mappers>
+    <mapper resource="com/spring/mvc/mybatis/StudentMapper.xml"/>
+    <!-- StudentMapper에서의 매핑을 해준다, 추후 매핑을 여러개를 할수도 있다. -->
+  </mappers>
+</configuration>

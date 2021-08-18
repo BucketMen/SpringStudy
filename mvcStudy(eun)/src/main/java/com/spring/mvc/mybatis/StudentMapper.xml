@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mapper 설정 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 
+	***mapper -> namespace="Student", mapper의 고유이름 
+	
+	***select -> 
+		** id는 DAO파일의 메소드명이 id로 들어간다.
+		** select는 반환이 있다 -> list?
+		** resultType="Integer" 반환할 타입을 지정, " "에 매핑할 클래스의 위치를 기술해야 한다.
+			* resultType리턴타입을 기술하는 부분, 쿼리문의 결과를 기술한 타입으로 반환한다.
+		** typeAliases로 resultType에 넣을 주소를 대체할 수 있다.
+		** select태그 안에는 sql문을 작성한다.
+		** select를 여러개 만들어서 지정할수도 있다.
+	
+	<select id="getStudentList" resultType="StudentType">
+		풀이> StudentType에 있는 getStudentList를 실행한다.
+-->
+<mapper namespace="Student">
+	<select id="getStudentList" resultType="StudentType">
+		select * from student_mst;
+	</select>
+</mapper>

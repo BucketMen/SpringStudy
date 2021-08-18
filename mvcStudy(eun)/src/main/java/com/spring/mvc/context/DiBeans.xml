@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	namespace - context설정 해줘야 한다
+	(그래야지 사용가능), aop도 마찬가지
+	
+	1. xml
+		classPathXmlApplicationContext("bean파일 경로");
+		FileSystemXmlApplicationContext("실질적인 파일의 경로");
+		
+	2. @Annotation
+		생성 : AnnotationConfigApplicationContext(클래스.Class);
+	
+	***어노테이션을 활용해서 DI하는 방법***
+	
+	**xml파일에 추가하여야 하는 소스코드**
+	
+	<context:anotation-config/> => 애를 어노테이션 안에 넣어주어야만 사용이 가능하다.
+	
+	@Autowired -> 객체
+		- 객체를 주입, ref /// value setter는 @Value
+		- 속성 [@autowired(required = false)], autowired할 값이 없으면(= 주입될 빈이 없을때) Null로 자동처리
+			-required의 속성, Qualifier() 괄호안에 객체가 없으면 그냥 오류가 난다.
+			-기본값은 true, 그래서 @autowired(required = false)하면 null처란다
+		- 역할: 값을 주입시키는 역할을 한다.생성의 역할을 하는것이 아님을 확실히 기억하자
+	
+	 @Qualifier("bean"의 이름)
+		- 어떤 객체를 주입시킬껀지 선택하는것
+	<context: component-scan base-package="스캔할 패키지 범위, 범위1, 범위2.....범위n">
+	
+	@component
+		-xml의 id와 동일한 방식 => @Component("인스턴스명")
+	
+	@Value("값") -> value
+		private String name;
+			
+	@Component - @Controller - @RequestMapping //컴포넌트는 3가지 종류로 나뉜다.
+							 - @GetMapping
+							 - ....
+			   - @Service
+			   - @Repository 	
+	
+	*	@Controller(model, view를 합쳐두는 역할을 한다), 정확히 합쳐주는건 viewResolver가 그 역할을 한다.
+	*	@Service(model의 정규화) => 로직들이 들어가는곳
+	*	@Repository(DAO, DTO, MGR을 의미한다.)
+	*	컴포넌트의 역할을 세분화한다.
+		
+	
+	** xml -> class파일로 대체하는방법
+	@ComponentScan("com.spring.mvc.context", "com.spring.mvc.DAO")
+	@Configration
+	
+	public class 클래스명{
+		@Bean
+		public 리턴클래스{} => 
+		public DiConnectionEx diconnectionEx(){ -> 메소드명이 인스턴스명이다.
+			return new DiconnectionEx();
+		}
+	}
+	
+	*@오토와이어랑 @밸류는 같다
+	
+	
+ -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+	
+	<context:component-scan base-package="com.spring.mvc.context"></context:component-scan>
+	
+	<!-- base-package 주소안에 있는 모든 컴포넌트를 스캔한다, 그리고 자동으로 <context:annotation-config/>를 실행한다 
+	context:annotation-config => 애가 있어야만 annotation을 확인한다. 없으면 발견하지 못한다.
+	
+	==================@componant로 대체할 수 있는 코드============================
+	
+	<bean id="diex" class="com.spring.mvc.context.DiEx1">
+		<property name="name" value="이은수"></property>
+		<property name="phone" value="010-9988-1916"></property>
+	</bean> 
+	
+	<bean id="diex2" class="com.spring.mvc.context.DiEx2">
+		<property name="name" value="이은수"></property>
+		<property name="number" value="123456-1234567"></property>
+	</bean> 
+	
+	
+	
+	<bean id="diConnectionEx" class="com.spring.mvc.context.DiConnectionEx">
+		 <property name="diex" ref="diex1"></property>
+	</bean>
+	
+	bean의 역할, 객체생성, 객체생성 또한 autowired가 하는것을 봐야한다.
+	bean을 대체할 수 있는것이 componant 
+		
+	-->
+</beans>
