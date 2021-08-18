@@ -34,6 +34,20 @@
 		<beans:property name="password" value="toor"></beans:property>
 	</beans:bean>
 	
+	<!-- mybatis 선언 -->
+	<beans:bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<beans:property name="dataSource" ref="dataSource"></beans:property>
+		<beans:property name="mapperLocations" value="classpath:mappers/*.xml"></beans:property>
+	</beans:bean>
 	
+	<beans:bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+	<!-- sqlSessionTemplate이 SqlSession을 implements하고 있다 그래서 sqlSession을 생성하지 않아도 알아서 업캐스팅 되어 오토와이어드와 연결된다. -->
+		<beans:constructor-arg ref="sqlSessoinFactory"></beans:constructor-arg>
+	</beans:bean>
+	
+	<beans:bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- MapperScannerConfigurer: 어떠한 패키지 안에 있는 모든 매퍼를 스캔하라는 의미이다. -->
+		<beans:property name="basePackage" value="com.spring.mvc.dao"></beans:property>
+	</beans:bean>
 	
 </beans:beans>

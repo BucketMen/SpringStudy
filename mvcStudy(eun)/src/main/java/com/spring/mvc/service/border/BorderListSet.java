@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.mvc.dao.BorderDAO;
+import com.spring.mvc.dao.MybatisBorderDAO;
 import com.spring.mvc.model.beans.BorderBean;
 
 @Service
@@ -14,6 +15,10 @@ public class BorderListSet {
 	@Autowired
 	private BorderDAO borderDAO;
 
+	@Autowired
+	private MybatisBorderDAO myBatisBorderDAO;
+	
+	
 	private ArrayList<BorderBean> borderListAll;
 	private int totalListCount;
 
@@ -25,7 +30,10 @@ public class BorderListSet {
 
 	public ArrayList<BorderBean> getBorderList(int page) {
 		ArrayList<BorderBean> borderList = new ArrayList<BorderBean>();
-		borderListAll = borderDAO.getBorderList();
+		
+		//borderListAll = borderDAO.getBorderList();
+		borderListAll = (ArrayList<BorderBean>)myBatisBorderDAO.getBorderList();
+		
 		totalListCount = borderListAll.size();
 		int startIndex = (page - 1) * 10;
 		int endIndex = page * 10;

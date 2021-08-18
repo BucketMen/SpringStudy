@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mapper 설정 -->
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.spring.mvc.MyBatisBorderDAO">
+	<!-- com.spring.mvc.model.beans안에 있는 BorderBean의 타입으로 데이터를 가져온다. -->
+	<select id="getBorderList" resultType="com.spring.mvc.model.beans.BorderBean">
+		select * from border_mst order by border_code desc;
+	</select>
+	<select id="getBorderDtl" resultType="com.spring.mvc.model.beans.BorderBean">
+		select * from border_mst where border_code = #{border_code};
+	</select>
+	
+
+</mapper>
