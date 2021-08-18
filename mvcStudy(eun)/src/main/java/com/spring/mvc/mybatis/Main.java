@@ -14,7 +14,7 @@ import com.spring.mvc.model.study.Student;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		selectStudent();
+		selectStudent();//메소드 실행
 		
 	}
 	
@@ -35,7 +35,15 @@ public class Main {
 			System.out.println(s);
 		}
 		
+		//getStudentSeq
+		List<Integer> seqList = session.selectList("Student.getStudentSeq");
+		for (Student i : list) {
+			System.out.println(i);
+		}
 		
+		//int
+		String name = session.selectOne("Student.getStudentNameOne", 2);//, 뒤 값은 매개변수값(전달할 데이터의 값) & seq 2번재에 있는 이름을 가져온다.
+		System.out.println("학생이름: " + name);
 	}
 
 }

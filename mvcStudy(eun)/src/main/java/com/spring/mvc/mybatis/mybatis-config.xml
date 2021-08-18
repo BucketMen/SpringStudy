@@ -11,7 +11,7 @@
 	<typeAliases>
 		<typeAlias type="com.spring.mvc.model.study.Student" alias="StudentType"/>
 	</typeAliases>
-
+<!-- ============================================================================================================================= -->
   <environments default="development">
     <environment id="development">
       <transactionManager type="JDBC"/>
@@ -31,8 +31,17 @@
       -->
     </environment>
   </environments>
+
+ <!-- ============================================================================================================================= -->
+ 
   <mappers>
     <mapper resource="com/spring/mvc/mybatis/StudentMapper.xml"/>
     <!-- StudentMapper에서의 매핑을 해준다, 추후 매핑을 여러개를 할수도 있다. -->
   </mappers>
 </configuration>
+
+
+<!-- 
+	파일 경로: /으로 나뉨, 파일자체로 접근 할때는 /
+	클래스 경로 .으로 나뉨, 클래스를 참조하거나 불러올때는 .
+-->
