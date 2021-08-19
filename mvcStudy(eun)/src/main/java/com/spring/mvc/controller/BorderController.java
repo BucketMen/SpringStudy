@@ -1,7 +1,12 @@
 package com.spring.mvc.controller;
 
+import java.awt.PageAttributes.MediaType;
+import java.io.IOException;
+
+import javax.print.attribute.standard.Media;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.ibatis.javassist.bytecode.analysis.MultiType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +19,7 @@ import com.spring.mvc.model.BorderDtlModel;
 import com.spring.mvc.model.BorderInsertModel;
 import com.spring.mvc.model.BorderListModel;
 import com.spring.mvc.service.border.BorderDtlService;
+import com.spring.mvc.service.border.BorderInsertService;
 import com.spring.mvc.service.border.BorderListSet;
 
 
@@ -25,6 +31,9 @@ public class BorderController {
 	
 	@Autowired
 	BorderDtlService borderDtlService;
+	
+	//@Autowired
+	//BorderInsertService borderInsertService;
 	
 	@Autowired
 	BorderDAO borderDAO;
@@ -60,18 +69,27 @@ public class BorderController {
 	}
 	
 	@RequestMapping(value= "/borderinsert", method= RequestMethod.GET)
-	public ModelAndView borderInsert(){
-		
+	public ModelAndView borderInsert(BorderInsertModel borderInsertModel){
 		ModelAndView view = new ModelAndView("/border/borderinsert");
+		/*
+		 * System.out.println(borderInsertModel.getBorder_title());//이미지이름1
+		 * System.out.println(borderInsertModel.getFile().getOriginalFilename());//파일의 원래이름, image.jpg
+		 * 이렇게 두가지의 버전으로 이름을 두개 받는 이유는 중복이 될경우 이름이 같을때 파일끼리 덮어쓰기가 될 수도 있기 때문이다.
+		 * db상에는 다른 이름이 저장될 것이다.
+		 * */
+		String orginalFile = borderInsertModel.getFile().getOriginalFilename();
+		String orginalFileExtention = orginalFile.substring(orginalFile.lastIndexOf("."));
+		System.out.println(orginalFileExtention);
 		return view;
 	}
 	
-	@RequestMapping(value= "/borderdatainsert", method= RequestMethod.POST)//jsp에서 보내는 방식과 동일하게 받아야 한다.
-	public ModelAndView borderDataInsert(BorderInsertModel borderInsertModel , HttpServletRequest request){
-		ModelAndView view = new ModelAndView("/border/border");//작성후 border페이지로 넘겨준다.
-		//***borderInsertModel.setUser_ip(request.getRemoteAddr());
-		//***borderDAO.insertBorder(borderInsertModel);
-		
+	@RequestMapping(value= "/borderdatainsert", method= RequestMethod.POST)
+	public ModelAndView borderDataInsert(BorderInsertModel borderInsertModel, HttpServletRequest request) throws IllegalStateException, IOException{
+		ModelAndView view = new ModelAndView("/border/border");
+		//borderInsertService.fileUpload(borderInsertModel);
+		borderInsertModel.setUser_ip(request.getRemoteAddr());
+		String realPath = request.getServletPath().getRealPath("/jspEx/upload");
+		borderInsertService.fileUpload(borderInsertModel);
 		return view;
 	}
 	
@@ -86,6 +104,9 @@ public class BorderController {
 		view.addObject("borderDtlModel", model);//"borderDtlModel"을 model에 심어서 객체로 보낸다.
 		return view;
 	}
+	
+	
+	
 }
 	
 	

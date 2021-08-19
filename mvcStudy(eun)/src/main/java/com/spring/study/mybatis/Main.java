@@ -1,4 +1,4 @@
-package com.spring.mvc.mybatis;
+package com.spring.study.mybatis;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
-import com.spring.mvc.model.study.Student;
+import com.spring.study.model.study.Student;
 
 public class Main {
 

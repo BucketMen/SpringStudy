@@ -1,4 +1,4 @@
-package com.spring.mvc.context;
+package com.spring.study.context;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

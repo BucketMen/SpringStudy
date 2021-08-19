@@ -49,7 +49,7 @@
 							<td colspan="3">
 								<c:forTokens var="fileName"
 									items="${borderDtlModel.border_file }" delims="," varStatus="st">
-									<a download href="upload/${fileName }">${fileName }</a>
+									<a download href="C:/김준일강사수업/fileupload/${borderDtlModel}">${borderDtlModel}</a>
 									<c:if test="${not st.last }">/</c:if>
 								</c:forTokens>
 								</td>

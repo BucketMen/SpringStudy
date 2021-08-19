@@ -1,14 +1,17 @@
 package com.spring.mvc.model;
 
+import org.springframework.web.multipart.MultipartFile;
+
 /**
  * 
- * //모델: 데이터가 넘겨질때 사용 //밸류로 넘어올것, 보더타이틀-유저네임-파일-컨텐츠_텍스트에리어(4개의 파라미터가 넘어온다)
+ * 모델: 데이터가 넘겨질때 사용 
+ * 밸류로 넘어올것, 보더타이틀-유저네임-파일-컨텐츠_텍스트에리어(4개의 파라미터가 넘어온다)
  *
  */
 public class BorderInsertModel {
 	private String border_title;
 	private String user_name;
-	private String file;
+	private MultipartFile file;//인터페이스
 	private String content_textarea;
 	private String user_ip;
 	
@@ -29,11 +32,11 @@ public class BorderInsertModel {
 		this.user_name = user_name;
 	}
 
-	public String getFile() {
+	//자동으로 업캐스팅, 파일이 들어오면 
+	public MultipartFile getFile() {
 		return file;
 	}
-
-	public void setFile(String file) {
+	public void setFile(MultipartFile file) {
 		this.file = file;
 	}
 

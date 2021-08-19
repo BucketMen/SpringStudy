@@ -106,5 +106,20 @@ public class BorderDAO {
 		return borderBean;
 		//service로 간다?
 	}
+	public BorderBean getNextBorder_Code(int border_code) {
+		String sql = "select border_code, border_title from border_mst where border_code = "
+				+ "(select min(border_code) from border_mst border_mst where border_code > ?)";
+		BorderBean borderBean = jdbcTemplate.queryForObject(sql, new Object[] {border_code}, 
+				 new RowMapper<BorderBean>() {
+					@Override
+					public BorderBean mapRow(ResultSet rs, int rowNum) throws SQLException {
+						BorderBean bean = new BorderBean();
+						bean.setBorder_code(rs.getInt(1));
+						bean.setBorder_title(rs.getString(2));
+						return bean;
+					}
+				 });
+		return borderBean;
+	}
 
 }
