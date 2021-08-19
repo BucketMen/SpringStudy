@@ -88,7 +88,7 @@ public class BorderController {
 		ModelAndView view = new ModelAndView("/border/border");
 		//borderInsertService.fileUpload(borderInsertModel);
 		borderInsertModel.setUser_ip(request.getRemoteAddr());
-		String realPath = request.getServletPath().getRealPath("/jspEx/upload");
+		String realPath = request.getRealPath("/jspEx/upload");
 		borderInsertService.fileUpload(borderInsertModel);
 		return view;
 	}
