@@ -24,10 +24,10 @@ public class BorderController {
 	BorderListSet borderListSet;
 	
 	@Autowired
-	BorderDAO borderDAO;
+	BorderDtlService borderDtlService;
 	
 	@Autowired
-	BorderDtlService borderDtlService;
+	BorderDAO borderDAO;
 	
 	@RequestMapping(value= "/border", method= RequestMethod.GET)
 	public ModelAndView borderIndex(){
@@ -69,8 +69,8 @@ public class BorderController {
 	@RequestMapping(value= "/borderdatainsert", method= RequestMethod.POST)//jsp에서 보내는 방식과 동일하게 받아야 한다.
 	public ModelAndView borderDataInsert(BorderInsertModel borderInsertModel , HttpServletRequest request){
 		ModelAndView view = new ModelAndView("/border/border");//작성후 border페이지로 넘겨준다.
-		borderInsertModel.setUser_ip(request.getRemoteAddr());
-		borderDAO.insertBorder(borderInsertModel);
+		//***borderInsertModel.setUser_ip(request.getRemoteAddr());
+		//***borderDAO.insertBorder(borderInsertModel);
 		
 		return view;
 	}
